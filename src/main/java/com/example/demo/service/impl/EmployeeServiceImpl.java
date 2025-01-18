@@ -22,7 +22,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee createEmployee(EmployeeDto employeeDto) {
         Employee employee = new Employee();
         employee.setFullName(employeeDto.getFullName());
-        employee.setEmployeeId(employeeDto.getEmployeeId());
         employee.setJobTitle(employeeDto.getJobTitle());
         employee.setDepartment(employeeDto.getDepartment());
         employee.setHireDate(employeeDto.getHireDate());

@@ -2,11 +2,6 @@ package com.example.demo.entity;
 
 
 import jakarta.persistence.*;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -26,6 +21,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
     

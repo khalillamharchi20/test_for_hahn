@@ -24,12 +24,9 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long employeeId;
 
     private String fullName;
-
-    @Column(unique = true, nullable = false)
-    private String employeeId;
 
     private String jobTitle;
 

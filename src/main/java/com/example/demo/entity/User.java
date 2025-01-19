@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,6 +31,7 @@ public class User {
     @Column(unique = true, nullable = false)
     private String username;
 
+    @JsonIgnore
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

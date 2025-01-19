@@ -2,20 +2,28 @@ package com.example.demo.service.impl;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.EmployeeDto;
+import com.example.demo.entity.Department;
 import com.example.demo.entity.Employee;
+import com.example.demo.entity.User;
 import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.EmployeeService;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final UserRepository userRepository;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, UserRepository userRepository) {
         this.employeeRepository = employeeRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -23,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee();
         employee.setFullName(employeeDto.getFullName());
         employee.setJobTitle(employeeDto.getJobTitle());
-        employee.setDepartment(employeeDto.getDepartment());
+        employee.setDepartment(Enum.valueOf(Department.class, employeeDto.getDepartment()));
         employee.setHireDate(employeeDto.getHireDate());
         employee.setEmploymentStatus(employeeDto.getEmploymentStatus());
         employee.setContactInformation(employeeDto.getContactInformation());
@@ -44,6 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employeeDto.getJobTitle() != null) employee.setJobTitle(employeeDto.getJobTitle());
         if (employeeDto.getContactInformation() != null) employee.setContactInformation(employeeDto.getContactInformation());
         if (employeeDto.getAddress() != null) employee.setAddress(employeeDto.getAddress());
+        if (employeeDto.getDepartment() != null) employee.setDepartment(Enum.valueOf(Department.class, employeeDto.getDepartment()));
 
         return employeeRepository.save(employee);
     }
@@ -65,8 +74,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getEmployeesByDepartment(String department) {
-        return employeeRepository.findByDepartment(department);
+    public List<Employee> getEmployeesByDepartment() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new SecurityException("Unauthorized access");
+        }
+
+        String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+
+       return employeeRepository.findByDepartment(Enum.valueOf(Department.class, user.getDepartment().name()));
     }
 
     

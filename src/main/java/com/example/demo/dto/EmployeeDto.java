@@ -18,7 +18,7 @@ import lombok.Setter;
 public class EmployeeDto {
     private String fullName;
     private String jobTitle;
-    private Department department;
+    private String department;
     private LocalDate hireDate;
     private String employmentStatus;
     private String contactInformation;

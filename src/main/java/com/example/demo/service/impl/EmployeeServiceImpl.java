@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
@@ -86,6 +87,16 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
 
        return employeeRepository.findByDepartment(Enum.valueOf(Department.class, user.getDepartment().name()));
+    }
+
+    @Override
+    public List<Employee> searchEmployees(String name, Long id, Department department, String jobTitle) {
+        return employeeRepository.searchEmployees(name, id, department, jobTitle);
+    }
+
+    @Override
+    public List<Employee> filterEmployees(String employmentStatus, Department department, LocalDate startDate, LocalDate endDate) {
+        return employeeRepository.filterEmployees(employmentStatus, department, startDate, endDate);
     }
 
     

@@ -41,6 +41,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable() 
             .authorizeHttpRequests()
+            .requestMatchers(HttpMethod.GET,"/api/public/search").hasAnyRole("ADMINISTRATOR","HR")  
+            .requestMatchers(HttpMethod.GET,"/api/public/filter").hasAnyRole("ADMINISTRATOR","HR")  
             .requestMatchers(HttpMethod.GET,"/api/public/department").hasRole("MANAGER") 
                 .requestMatchers(HttpMethod.GET,"/api/public").hasAnyRole("ADMINISTRATOR","HR")  
                 .requestMatchers(HttpMethod.POST,"/api/public").hasAnyRole("ADMINISTRATOR","HR") 

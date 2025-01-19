@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.UserDto;
+import com.example.demo.entity.Department;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.RoleName;
 import com.example.demo.entity.User;
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
         user.setRoles(roles);
-        user.setDepartment(userDto.getDepartment());
+        user.setDepartment(Enum.valueOf(Department.class, userDto.getDepartment()));
         return userRepository.save(user);
     }
 }

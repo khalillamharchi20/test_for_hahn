@@ -19,5 +19,5 @@ public class UserDto {
     private String username;
     private String password;
     private Set<String> roles; 
-    private Department department; 
+    private String department; 
 }

@@ -23,7 +23,7 @@ Ensure you have the following installed on your system:
    cd <repository-folder>
 
 2. Build and start the application using Docker Compose:
- ```bash
+    ```bash
     docker-compose up -d --build
 
 3. Access the API documentation in your browser: http://localhost:6868/swagger-ui/index.html#/

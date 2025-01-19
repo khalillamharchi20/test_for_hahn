@@ -39,21 +39,19 @@ Ensure you have the following installed on your system:
     To stop and clean up the application:
     ```bash
         docker-compose down
-Database Configuration
-The database is configured with the following environment variables:
 
-MYSQLDB_USER: root
-MYSQLDB_ROOT_PASSWORD: 123456
-MYSQLDB_DATABASE: hahn_test
-Preloaded Data
+6. Database Configuration
+    MYSQLDB_USER: root
+    MYSQLDB_ROOT_PASSWORD: 123456
+    MYSQLDB_DATABASE: hahn_test
+
+#### preloaded data
 When the application starts, the following data is preloaded into the database:
 
-Admin User:
-
-Username: admin
-Password: password
-Roles:
-
-ROLE_ADMINISTRATOR
-ROLE_HR
-ROLE_MANAGER
+1. Admin User:
+    Username: admin
+    Password: password
+2. Roles:
+    ROLE_ADMINISTRATOR
+    ROLE_HR
+    ROLE_MANAGER
